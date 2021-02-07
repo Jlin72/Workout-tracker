@@ -4,6 +4,7 @@ const app = express();
 
 // Telling the app to use mongoose npm
 const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true, useUnifiedTopology:true, useCreateIndex: true, useFindAndModify: true });
 
 // Setting the PORT for express to use, either is 8080 or a port decided by the server.
 const PORT = process.env.PORT || 8080;
@@ -18,14 +19,12 @@ app.use(express.json());
 // Telling express to use the public folder
 app.use(express.static('public'));
 
-// // Setting the routes for APIs
-// require
 
 // Setting the routes for html
 require('./routes/html-routes')(app, path);
 
-// // Setting the routes for the api calls
-// require('./routes/api-routes')(app);
+// Setting the routes for the api calls
+require('./routes/api-routes')(app);
 
 // Starting the server
 app.listen(PORT, () => {
