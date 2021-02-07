@@ -22,15 +22,37 @@ const WorkoutSchema = new Schema( {
         required: 'Enter the name of the exercise'
       },
     
-      duration: Number,
+      duration: {
+        type: Number,
+        trim: true,
+        required: 'Enter the duration of the exercise'
+      },
     
-      weight: Number,
+      weight: {
+        type: Number,
+        trim: true,
+        required: 'Weight is required'
+      },
     
-      reps: Number,
+      reps: {
+        type: Number,
+        trim: true,
+        required: 'Number of reps is required'
+      },
     
-      sets: Number
+      sets: {
+        type: Number,
+        trim: true,
+        required: 'Number of sets is required'
+      },
+
+      distance: {
+        type: Number,
+        trim: true,
+        required: 'Distance run is required'
+      }
     }
-  ]
+  ],
 });
 
 const Workout = mongoose.model("Workouts", WorkoutSchema);
