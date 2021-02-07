@@ -8,9 +8,26 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { use
 module.exports = (app) => {
   // This api route will be used to display the last workout
   app.get('/api/workouts', (req,res) => {
-    db.Workout.find({})
-      .then(dbWorkout => {
-        res.json(dbWorkout);
+    db.Workout.aggregate([
+      {
+        $addFields: {
+          totalDistance: {$sum: "$distance"},
+          totalDuration: {$sum: "$duration"},
+          totalSets: {$sum: "$sets"},
+          totalReps: {$sum: "$reps"},
+          totalWeight: {$sum: "$weight"}
+        }
+      }
+    ])
+      .then(() => {
+        db.Workout.find({})
+          .then(dbWorkout => {
+            console.log(dbWorkout);
+            res.json(dbWorkout)
+          })
+          .catch(err => {
+            res.json(err);
+          })
       }).catch(err => {
         res.json(err);
       });
