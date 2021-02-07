@@ -2,6 +2,9 @@
 const express = require('express');
 const app = express();
 
+// Telling the app to use mongoose npm
+const mongoose = require('mongoose');
+
 // Setting the PORT for express to use, either is 8080 or a port decided by the server.
 const PORT = process.env.PORT || 8080;
 
