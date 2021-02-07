@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true, useUnifiedTopology:true, useCreateIndex: true, useFindAndModify: true });
 
 module.exports = (app) => {
+  // This api route will be used to display the last workout
   app.get('/api/workouts', (req,res) => {
     db.Workout.find({})
       .then(dbWorkout => {
@@ -27,15 +28,12 @@ module.exports = (app) => {
       })
   });
 
+  // This route will update the workout on the database based on the id
   app.put('/api/workouts/:id', ({params, body}, res) => {
     db.Workout.findByIdAndUpdate({_id: params.id}, {$push: {exercises: body}}, {new: true})
       .then(dbWorkout => {
         console.log(dbWorkout);
         res.json(dbWorkout);
       })
-  })
-
-  app.get('/api/workouts/:id', ({params, body}, res) => {
-    console.log(params.id)
-  })
+  });
 }
