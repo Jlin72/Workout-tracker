@@ -29,14 +29,32 @@ module.exports = (app) => {
   });
 
   app.get('/api/workouts/range', (req,res) => {
-    db.Workout.find({})
-      .then(dbWorkout => {
-        console.log(dbWorkout);
-        res.json(dbWorkout);
-      })
-      .catch(err => {
+    // db.Workout.find({})
+    //   .then(dbWorkout => {
+    //     console.log(dbWorkout);
+    //     res.json(dbWorkout);
+    //   })
+    //   .catch(err => {
+    //     res.json(err);
+    //   })
+    db.Workout.aggregate([
+      {
+        $addFields: {
+          totalDistance: {$sum: "$exercises.distance"},
+          totalDuration: {$sum: "$exercises.duration"},
+          totalSets: {$sum: "$exercises.sets"},
+          totalReps: {$sum: "$exercises.reps"},
+          totalWeight: {$sum: "$exercises.weight"}
+        }
+      }
+    ])
+      .then((response) => {
+        res.json(response)
+        console.log(response);
+      }).catch(err => {
+        console.log(err);
         res.json(err);
-      })
+      });
   })
   
   // This api route will create the workout on the database
