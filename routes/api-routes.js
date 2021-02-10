@@ -11,27 +11,33 @@ module.exports = (app) => {
     db.Workout.aggregate([
       {
         $addFields: {
-          totalDistance: {$sum: "$distance"},
-          totalDuration: {$sum: "$duration"},
-          totalSets: {$sum: "$sets"},
-          totalReps: {$sum: "$reps"},
-          totalWeight: {$sum: "$weight"}
+          totalDistance: {$sum: "$exercises.distance"},
+          totalDuration: {$sum: "$exercises.duration"},
+          totalSets: {$sum: "$exercises.sets"},
+          totalReps: {$sum: "$exercises.reps"},
+          totalWeight: {$sum: "$exercises.weight"}
         }
       }
     ])
-      .then(() => {
-        db.Workout.find({})
-          .then(dbWorkout => {
-            console.log(dbWorkout);
-            res.json(dbWorkout)
-          })
-          .catch(err => {
-            res.json(err);
-          })
+      .then((response) => {
+        res.json(response)
+        console.log(response);
       }).catch(err => {
+        console.log(err);
         res.json(err);
       });
   });
+
+  app.get('/api/workouts/range', (req,res) => {
+    db.Workout.find({})
+      .then(dbWorkout => {
+        console.log(dbWorkout);
+        res.json(dbWorkout);
+      })
+      .catch(err => {
+        res.json(err);
+      })
+  })
   
   // This api route will create the workout on the database
   app.post('/api/workouts', ({body},res) => {
