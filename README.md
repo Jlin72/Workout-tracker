@@ -18,7 +18,7 @@
 ## Description 
   This repository contains all the required code for the a web browser application that tracks an user workout to work properly.
 ## Deployed application link
-  Link to the deployed heroku app: https://stark-springs-19756.herokuapp.com/?id=6023e45baf554939a0cc6ad0
+  Link to the deployed heroku app: https://stark-springs-19756.herokuapp.com/
 ## Installation
   No installation required to run the app. Simply just click on the deployed application link to use the app on online.
 
