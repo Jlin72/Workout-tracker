@@ -28,7 +28,9 @@
   3. Then on your console find the location of the files and run npm install to download all dependencies.
   4. Lastly, type node server to run the app on localhost:8080;
 ## Usage
-  To use the app simply enter the name of the burger you want to eat inside the text area. Then press devour on the burgers to eat table to eat the burger.
+  To use the app, press on new workout to create a new workout. However, if there is already a workout on the database, click on continue to continue from the last workout.
+  Once either is done, select the type of exercise: 'Cardio' or 'resistance' and proceed to enter the appropiate information. Next, you can click on add exercise to add a new one, or simply click on complete to finsih adding exercises. 
+  Lastly, if you want to check your workout, you can also click on dashboard to see a series of data about your workout.
 ## Weaknesses
   Currently there is no way to delete data, workouts, after they have been sent to the database.
 ## Screenshots or video
